@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Rapor</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  </head>
+<body>
+ 
+<!-- section rekomendasi kos -->
+<div id="rekomendasi" class="pad-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6 text-right">
+                <h1>Nilai Terbaik?</h1>
+                <center><button id="btn1" class="btn" data-toggle="modal" data-target="#modalrekomendasi">Klik disini!</button></center>
+            </div>
+            <div class="col-sm-6">
+                <center><img src="images/question.jpg" alt="" style="width: 50%;" /></center>
+            </div>
+            <div class="modal fade" id="modalrekomendasi" role="dialog">
+                <div class="modal-dialog">
+                 
+                  <!-- Modal content-->
+                   <div class="modal-content">
+                   <form action="1.php" method="POST">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal">&times;</button>
+                      <h4 class="modal-title">Tentukan sendiri kriteria siswa terbaikmu</h4>
+                                <p class="lead">Pilih nilai yang ingin diproritaskan dalam penilain</p>
+                    </div>
+                    <div class="modal-body">
+    <fieldset>
+    <legend><h4>Tentukan Prioritas <br>  </h4></legend>
+                      <i style="color:grey font-size=5px">Urutan Tiap Prioritas Tidak Boleh Sama</i>
+                          
+                          
+                         <div class="form-group">
+            <div class="row">
+                <label class="col-xs-3 control-label" style="color: black">Prioritas 1</label>
+                    <div class="col-xs-5 selectContainer">
+                        <select class="form-control" name="p1" required id="p1">
+                            <option value="agama">Agama</option>
+                            <option value="kognitif">Kognitif</option>
+                            <option value="fisik">Fisik</option>
+                            <option value="bahasa">Bahasa</option>
+                            <option value="sosial">Emosional</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+            <div class="row">
+                <label class="col-xs-3 control-label" style="color: black">Prioritas 2</label>
+                    <div class="col-xs-5 selectContainer">
+                        <select class="form-control" name="p2" required id="p2">
+                            <option value="agama">Agama</option>
+                            <option value="kognitif">Kognitif</option>
+                            <option value="fisik">Fisik</option>
+                            <option value="bahasa">Bahasa</option>
+                            <option value="sosial">Emosional</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+            <div class="row">
+                <label class="col-xs-3 control-label" style="color: black">Prioritas 3</label>
+                    <div class="col-xs-5 selectContainer">
+                        <select class="form-control" name="p3" required id="p3">
+                            <option value="agama">Agama</option>
+                            <option value="kognitif">Kognitif</option>
+                            <option value="fisik">Fisik</option>
+                            <option value="bahasa">Bahasa</option>
+                            <option value="sosial">Emosional</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+            <div class="row">
+                <label class="col-xs-3 control-label" style="color: black">Prioritas 4</label>
+                    <div class="col-xs-5 selectContainer">
+                        <select class="form-control" name="p4" required id="p4">
+                            <option value="agama">Agama</option>
+                            <option value="kognitif">Kognitif</option>
+                            <option value="fisik">Fisik</option>
+                            <option value="bahasa">Bahasa</option>
+                            <option value="sosial">Emosional</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+            <div class="row">
+                <label class="col-xs-3 control-label" style="color: black">Prioritas 5</label>
+                    <div class="col-xs-5 selectContainer">
+                        <select class="form-control" name="p5" required id="p5">
+                            <option value="agama">Agama</option>
+                            <option value="kognitif">Kognitif</option>
+                            <option value="fisik">Fisik</option>
+                            <option value="bahasa">Bahasa</option>
+                            <option value="sosial">Emosional</option>
+                        </select>
+                    </div>
+                    </div>
+                    </div>
+                    </fieldset>
+ 
+ 
+                           
+                    </div>
+                    <div class="modal-footer">
+                    <button type="submit" name="submit" class="btn btn-default">Proses</button> 
+ 
+                    <a href="index.php"><button type="button" class="btn btn-default">Back</button></a>
+                   
+                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    
+                  </div>
+                   </form>
+                </div>
+              </div>
+        </div>
+    </div>
+</div>
+<!-- end rekomendasi kos -->
+<!--php-->
+ 
+ 
+<?php
+      include 'fungsi.php';
+ 
+$kriteria_inputt[0]=$_POST['p1'];
+$kriteria_inputt[1]=$_POST['p2'];
+$kriteria_inputt[2]=$_POST['p3'];
+$kriteria_inputt[3]=$_POST['p4'];
+$kriteria_inputt[4]=$_POST['p5'];
+       
+$resultt =mysqli_query($con, "SELECT  count(agama) as total FROM jumlah_raport")or die (mysqli_error($con));
+$banyak = $resultt->fetch_object()->total;
+$totttal = array();
+ 
+ 
+$result_agama = mysqli_query($con,"select $kriteria_inputt[0] from jumlah_raport")or die (mysqli_error($con));
+$agama = array();
+$result_fisik = mysqli_query($con,"select $kriteria_inputt[4] from jumlah_raport")or die (mysqli_error($con));
+$fisik = array();
+$result_kognitif = mysqli_query($con,"select $kriteria_inputt[1] from jumlah_raport")or die (mysqli_error($con));
+$kognitif = array();
+$result_bahasa = mysqli_query($con,"select $kriteria_inputt[2] from jumlah_raport")or die (mysqli_error($con));
+$bahasa = array();
+$result_sosial = mysqli_query($con,"select $kriteria_inputt[3] from jumlah_raport")or die (mysqli_error($con));
+$sosial = array();
+ 
+while($row = mysqli_fetch_array($result_agama))
+{   $agama[]    = $row  [$kriteria_inputt[0]];  }
+ 
+while($row1 = mysqli_fetch_array($result_kognitif))
+{   $kognitif[] = $row1 [$kriteria_inputt[1]];}
+ 
+while($row2 = mysqli_fetch_array($result_bahasa))
+{   $bahasa[]   = $row2 [$kriteria_inputt[2]];}
+ 
+while($row3 = mysqli_fetch_array($result_sosial) )
+{   $sosial[]   = $row3 [$kriteria_inputt[3]];}
+ 
+while($row4 = mysqli_fetch_array($result_fisik))
+{   $fisik[]    = $row4 [$kriteria_inputt[4]];}
+ 
+ 
+         
+ 
+$kriteria_input[0]=$kriteria_inputt[0];
+$kriteria_input[1]=$kriteria_inputt[1];
+$kriteria_input[2]=$kriteria_inputt[2];
+$kriteria_input[3]=$kriteria_inputt[3];
+$kriteria_input[4]=$kriteria_inputt[4];
+for ( $a=0; $a<count($bahasa); $a++)
+{
+    for ( $b=0; $b<count($bahasa); $b++)
+{   
+    $dss_basic[$b][$a]="$kriteria_inputt[$b]$kriteria_inputt[$a]";
+    }
+}
+for ($a=0; $a<25; $a++)
+{
+}
+ 
+ 
+ 
+$dss_basic[0][0]=1;
+$dss_basic[0][1]=4;
+$dss_basic[0][2]=3;
+$dss_basic[0][3]=3;
+$dss_basic[0][4]=1;
+$dss_basic[1][0]=0.25;
+$dss_basic[1][1]=1;
+$dss_basic[1][2]=0.5;
+$dss_basic[1][3]=0.5;
+$dss_basic[1][4]=0.25;
+$dss_basic[2][0]=0.33333;
+$dss_basic[2][1]=2;
+$dss_basic[2][2]=1;
+$dss_basic[2][3]=1;
+$dss_basic[2][4]=0.33333;
+$dss_basic[3][0]=0.33333;
+$dss_basic[3][1]=2;
+$dss_basic[3][2]=1;
+$dss_basic[3][3]=1;
+$dss_basic[3][4]=0.33333;
+$dss_basic[4][0]=1;
+$dss_basic[4][1]=4;
+$dss_basic[4][2]=3;
+$dss_basic[4][3]=3;
+$dss_basic[4][4]=1;
+ 
+for ( $a=0; $a<count($bahasa); $a++)
+{
+    for ( $b=0; $b<count($bahasa); $b++)
+{   
+$kriterian[$b][$a]=$dss_basic[$b][$a];
+}
+}
+ 
+for($a=0; $a<5;$a++)
+{
+    $sum[$a] =0;
+}
+ 
+for ($iii= 0; $iii<5; $iii++)
+{
+    for ($b=0; $b<5; $b++)
+    {
+        $sum[$b] += $kriterian[$iii][$b];
+    }
+}
+for ($a = 0; $a<5; $a++)
+{   
+for ($b=0; $b<5; $b++)
+    {
+    $normalisasi[$b][$a]= $kriterian[$a][$b]/$sum[$b];  
+    }
+}
+ 
+for ($a = 0; $a<5; $a++)
+{
+    for ($b=0; $b<5; $b++)
+    {
+    }   
+$jum_normalisasikrit[$a]=0; 
+}
+for ($a =0; $a<5; $a++)
+{
+    for ($b=0; $b<5; $b++)
+    {
+        $jum_normalisasikrit[$b] += $normalisasi[$a][$b];
+    }   
+}
+for($a=0; $a<5; $a++)
+{
+    $rata_normakrit[$a]=$jum_normalisasikrit[$a]/5;
+ 
+    }
+ 
+//echo $normalisasi[0][3];  
+ 
+for($a=0; $a<5; $a++)
+{
+    $hasil_kali[$a][$a]=0;
+}
+ 
+for($a=0; $a<5; $a++)
+{
+    $hasil_kali1[$a] = 0;
+}
+for ($a=0; $a<5; $a++)
+{
+    for ($b=0; $b<5; $b++)
+        {   
+            $hasil_kali[$b][$a]  =  $kriterian[$b][$a]* $rata_normakrit[$a];
+        }
+}
+ for( $a =0; $a<5; $a++)
+ {
+    for ($b=0; $b<5; $b++)
+        {
+            $hasil_kali1[$b] += $hasil_kali[$b][$a];
+        }
+ }
+ 
+ 
+  
+ for ($a=0; $a<count($agama); $a++)
+ {
+    $matrik_agama[$a][$a]=0;
+     
+ }
+  
+ for ($a=0; $a<count($agama); $a++)
+    {
+ for ($b=0; $b<count($agama); $b++)
+    {
+         
+    $matrik_agama[$a][$b]=$agama[$a]/$agama[$b];
+    }
+    }
+     
+ for ($a=0; $a<count($agama); $a++)
+ {  $jumlah[$a]=0;  $normalisasi_agama[$a][$a]=0;   $rata_matrik_agama_agama[$a]=0; $jumlah_normalisasi_agama[$a]=0; }  
+  
+for ($iii= 0; $iii<count($agama); $iii++)
+{
+    for ($b=0; $b<count($agama); $b++)
+    {
+        $jumlah[$b] += $matrik_agama[$iii][$b];
+    }
+}
+for ($a= 0; $a<count($agama); $a++)
+{
+for ($b= 0; $b<count($agama); $b++)
+{
+        $normalisasi_agama[$a][$b]=$matrik_agama[$a][$b]/$jumlah[$b];
+}
+}
+ 
+for($a=0; $a<count($agama); $a++ )
+{   
+for($b=0; $b<count($agama); $b++ )
+{   
+ 
+    $jumlah_normalisasi_agama[$b]+= $normalisasi_agama[$b][$a];
+}
+}
+for($a=0; $a<count($agama); $a++ )
+{
+    $rata_matrik_agama_agama[$a]=$jumlah_normalisasi_agama[$a]/count($agama);
+}
+///aaaaaaaaaaaaa
+ for ($a=0; $a<count($fisik); $a++)
+ {
+ 
+  
+    $matrik_fisik[$a][$a]=0;
+     
+ }
+  
+ for ($a=0; $a<count($agama); $a++)
+    {
+ for ($b=0; $b<count($agama); $b++)
+    {
+    $matrik_fisik[$a][$b]=$fisik[$a]/$fisik[$b];
+    }
+    }
+     
+ for ($a=0; $a<count($fisik); $a++) {    $jumlah_fisik[$a]=0;    $normalisasi_fisik[$a][$a]=0;   $rata_matrik_fisik_fisik[$a]=0; $jumlah_normalisasi_fisik[$a]=0; }  
+  
+for ($iii= 0; $iii<count($fisik); $iii++)
+{
+    for ($b=0; $b<count($fisik); $b++)
+    {
+        $jumlah_fisik[$b] += $matrik_fisik[$iii][$b];
+    }
+}
+for ($a= 0; $a<count($fisik); $a++)
+{
+for ($b= 0; $b<count($fisik); $b++)
+{
+        $normalisasi_fisik[$a][$b]=$matrik_fisik[$a][$b]/$jumlah_fisik[$b];
+}
+}
+ 
+for($a=0; $a<count($fisik); $a++ )
+{   
+for($b=0; $b<count($fisik); $b++ )
+{   
+ 
+    $jumlah_normalisasi_fisik[$b]+= $normalisasi_fisik[$b][$a];
+}
+}
+for($a=0; $a<count($fisik); $a++ )
+{
+    $rata_matrik_fisik_fisik[$a]=$jumlah_normalisasi_fisik[$a]/count($fisik);
+}
+ 
+//aaaaaaaaaaaaa
+ 
+ for ($a=0; $a<count($kognitif); $a++)
+ {
+ 
+  
+    $matrik_kognitif[$a][$a]=0;
+     
+ }
+  
+ for ($a=0; $a<count($kognitif); $a++)
+    {
+ for ($b=0; $b<count($kognitif); $b++)
+    {
+    $matrik_kognitif[$a][$b]=$kognitif[$a]/$kognitif[$b];
+    }}
+     
+ for ($a=0; $a<count($kognitif); $a++) { $jumlah_kognitif[$a]=0;     $normalisasi_kognitif[$a][$a]=0;    $rata_matrik_kognitif[$a]=0;    $jumlah_normalisasi_kognitif[$a]=0; }   
+  
+for ($iii= 0; $iii<count($kognitif); $iii++)
+{
+    for ($b=0; $b<count($kognitif); $b++)
+    {
+        $jumlah_kognitif[$b] += $matrik_kognitif[$iii][$b];
+    }
+}
+for ($a= 0; $a<count($kognitif); $a++)
+{
+for ($b= 0; $b<count($kognitif); $b++)
+{
+        $normalisasi_kognitif[$a][$b]=$matrik_kognitif[$a][$b]/$jumlah_kognitif[$b];
+}
+}
+ 
+for($a=0; $a<count($kognitif); $a++ )
+{   
+for($b=0; $b<count($kognitif); $b++ )
+{   
+ 
+    $jumlah_normalisasi_kognitif[$b]+= $normalisasi_kognitif[$b][$a];
+}
+}
+for($a=0; $a<count($kognitif); $a++ )
+{
+    $rata_matrik_kognitif[$a]=$jumlah_normalisasi_kognitif[$a]/count($kognitif);
+}
+ 
+ 
+//aaaaaaaaaaaaa
+ 
+ for ($a=0; $a<count($bahasa); $a++)
+ {
+ 
+  
+    $matrik_bahasa[$a][$a]=0;
+     
+ }
+  
+ for ($a=0; $a<count($bahasa); $a++)
+    {
+         
+ for ($b=0; $b<count($bahasa); $b++)
+    {
+    $matrik_bahasa[$a][$b]=$bahasa[$a]/$bahasa[$b];
+    }
+    }
+     
+ for ($a=0; $a<count($bahasa); $a++) {   $jumlah_bahasa[$a]=0;   $normalisasi_bahasa[$a][$a]=0;  $rata_matrik_bahasa[$a]=0;  $jumlah_normalisasi_bahasa[$a]=0; } 
+  
+for ($iii= 0; $iii<count($bahasa); $iii++)
+{
+    for ($b=0; $b<count($bahasa); $b++)
+    {
+        $jumlah_bahasa[$b] += $matrik_bahasa[$iii][$b];
+    }
+}
+for ($a= 0; $a<count($bahasa); $a++)
+{
+for ($b= 0; $b<count($bahasa); $b++)
+{
+        $normalisasi_bahasa[$a][$b]=$matrik_bahasa[$a][$b]/$jumlah_bahasa[$b];
+}
+}
+ 
+for($a=0; $a<count($bahasa); $a++ )
+{   
+for($b=0; $b<count($bahasa); $b++ )
+{   
+ 
+    $jumlah_normalisasi_bahasa[$b]+= $normalisasi_bahasa[$b][$a];
+}
+}
+for($a=0; $a<count($bahasa); $a++ )
+{
+    $rata_matrik_bahasa[$a]=$jumlah_normalisasi_bahasa[$a]/count($bahasa);
+}
+ 
+ 
+//aaaaaaaaaaaaa
+ 
+ 
+ for ($a=0; $a<count($sosial); $a++)
+ {  $matrik_sosial[$a][$a]=0; }
+  
+ for ($a=0; $a<count($sosial); $a++)
+    {
+ for ($b=0; $b<count($sosial); $b++)
+    {
+    $matrik_sosial[$a][$b]=$sosial[$a]/$sosial[$b];
+    }   }
+     
+ for ($a=0; $a<count($sosial); $a++) {   $jumlah_sosial[$a]=0;   $normalisasi_sosial[$a][$a]=0;  $rata_matrik_sosial[$a]=0;  $jumlah_normalisasi_sosial[$a]=0; } 
+  
+for ($iii= 0; $iii<count($sosial); $iii++)
+{
+    for ($b=0; $b<count($sosial); $b++)
+    {
+        $jumlah_sosial[$b] += $matrik_sosial[$iii][$b];
+    }
+}
+for ($a= 0; $a<count($sosial); $a++)
+{
+for ($b= 0; $b<count($sosial); $b++)
+{
+        $normalisasi_sosial[$a][$b]=$matrik_sosial[$a][$b]/$jumlah_sosial[$b];
+}
+}
+ 
+for($a=0; $a<count($sosial); $a++ )
+{   
+for($b=0; $b<count($sosial); $b++ )
+{   
+ 
+    $jumlah_normalisasi_sosial[$b]+= $normalisasi_sosial[$b][$a];
+}
+}
+for($a=0; $a<count($sosial); $a++ )
+{
+    $rata_matrik_sosial[$a]=$jumlah_normalisasi_sosial[$a]/count($sosial);
+}
+ 
+ 
+ 
+ 
+// final
+for ($a=0; $a<5; $a++)
+{
+    $final_dss[$a]=0;
+}
+$b1 = 'final_dss[0]';
+    $b2 = 'final_dss[1]';
+    $b3 = 'final_dss[2]';
+    $b4 = 'final_dss[3]';
+    $b5 = 'final_dss[4]';
+     
+for ($a=0; $a<count($bahasa); $a++)
+{   
+    $final_dss[$a]= ($rata_matrik_agama_agama[$a]*$rata_normakrit[0])+($rata_matrik_fisik_fisik[$a]*$rata_normakrit[1])+($rata_matrik_kognitif[$a]*$rata_normakrit[2])+($rata_matrik_bahasa[$a]*$rata_normakrit[3])+($rata_matrik_sosial[$a]*$rata_normakrit[4]);
+    echo $final_dss[$a];
+     
+     
+    echo "<br>";
+}
+ 
+//echo $$b1;echo $$b2;echo $$b3;echo $$b4;echo $$b5;
+ 
+ 
+//for ($a=0; $a<count($bahasa); $a++)
+//{
+//$rangkin[$a] = mysqli_query($con,"INSERT INTO ranking_siswa (nilai, nis, id_dss) VALUES ( '$final_dss[1]','$a' ,'$a')");  
+//} 
+//  echo $rangkin;
+//untuk sorting 
+     
+     
+     
+    ?>
+<!--div class="container"-->
+      <div class="panel panel-default" style="width:80%;">
+        <div class="panel-heading" style="width:100%;background-color:#B6E0FF;"><h8 class="panel-title" style="font-family: helvetica;color:white;"><center><B>ISI RAPOR</B></center></h8></div>
+        <div class="panel-body" style="background-color:#f1f1f1;">
+        <?php    
+ 
+         
+         
+///sorting dari kecil kebesar
+         
+        $sortingg=0;
+for ($a=0; $a<count($final_dss); $a++)
+{
+    for ($b=1; $b<count($final_dss)-($a); $b++ )
+    {
+        if($final_dss[$b]<$final_dss[$b-1])
+        {
+            $sortingg=$final_dss[$b-1];
+            $final_dss[$b-1]= $final_dss[$b];
+            $final_dss[$b]=$sortingg;
+             
+        }
+    }
+        echo $final_dss[$a];
+        echo "<br>";
+}
+?>
+   
+    </div>
+      </div>  
+ 
+<footer class="container-fluid text-center">
+  <p>Footer Text</p>
+</footer>
+</body>
+</html>
